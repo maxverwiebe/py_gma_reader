@@ -94,13 +94,13 @@ class AddonReader:
         return struct.unpack("<i", self.read_bytes(4))[0]
 
     def read_string(self):
-        string = ""
+        bstring = bytearray(b'')
         while True:
             char = self.source.read(1)
             if not char or char == b"\0":
                 break
-            string += char.decode()
-        return string
+            bstring.extend(char)
+        return bstring.decode()
 
     def parse_addon(self):
         addon = GModAddon()
